@@ -617,7 +617,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b53037fcca02bcb4282cc06dfe6c65c6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -819,6 +819,7 @@ GameObject:
   - component: {fileID: 854542085}
   - component: {fileID: 854542084}
   - component: {fileID: 854542088}
+  - component: {fileID: 854542089}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -944,6 +945,22 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1290997129}
+--- !u!114 &854542089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 854542083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d810a5e4ed701e64c804da098202312a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hitRayLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  _hitMaterial: {fileID: 2100000, guid: c73fc63a4dc3e4c4b9d0782c0d0959e4, type: 2}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

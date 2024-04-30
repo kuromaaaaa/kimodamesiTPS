@@ -920,10 +920,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d810a5e4ed701e64c804da098202312a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rayDistance: 100
   _hitRayLayer:
     serializedVersion: 2
     m_Bits: 1
   _hitMaterial: {fileID: 2100000, guid: 4147faccf7e504a4dba7c02ef6570478, type: 2}
+  _tamaPrefub: {fileID: 4859609000654311003, guid: 274d9bbcebb592b4683c93de8b355a2e, type: 3}
 --- !u!114 &854542090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1031,7 +1033,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.1467404, y: 2.93, z: -9}
+  m_LocalPosition: {x: 7.1467404, y: 2.93, z: -8.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1135,7 +1137,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1020262868}
   m_LocalRotation: {x: -0.03876464, y: -0.60216534, z: 0.029299404, w: -0.7968914}
-  m_LocalPosition: {x: 7.1467404, y: 2.93, z: -9}
+  m_LocalPosition: {x: 7.1467404, y: 2.93, z: -8.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1272,7 +1274,7 @@ MonoBehaviour:
   ShoulderOffset: {x: 1.42, y: -0.4, z: 0}
   VerticalArmLength: 0.4
   CameraSide: 1
-  CameraDistance: 3.62
+  CameraDistance: 3.5
   CameraCollisionFilter:
     serializedVersion: 2
     m_Bits: 0

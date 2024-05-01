@@ -16,9 +16,14 @@ public class Input_moveTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+    }
+
+    private void FixedUpdate()
+    {
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
         Vector3 moveDirec = Camera.main.transform.forward * v + Camera.main.transform.right * h;
-        _rb.AddForce(moveDirec * _moveSpeed * Time.deltaTime);
+        _rb.AddForce(moveDirec * _moveSpeed);
     }
 }

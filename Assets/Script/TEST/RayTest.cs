@@ -26,37 +26,31 @@ public class RayTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector3 rayHitPos = _cm.transform.position + (_cm.transform.forward * _rayDistance);
+
         if (Physics.Raycast(_cm.transform.position, _cm.transform.forward, out _rayhit, _rayDistance, _hitRayLayer))
         {
             Debug.Log(_rayhit.collider.gameObject.name);
+            rayHitPos = _rayhit.point;
             if (Input.GetMouseButtonDown(0))
             {
                 _rayhit.collider.gameObject.GetComponent<MeshRenderer>().material = _hitMaterial;
-                if(_tamaPrefub)
-                {
-                    GameObject tama = Instantiate(_tamaPrefub);
-                    tama.transform.position = this.transform.position;
-                    tama.GetComponent<Rigidbody>().AddForce((_rayhit.point - transform.position).normalized * 100,ForceMode.Impulse);
-                }
             }
         }
-        else
+        if (Input.GetMouseButtonDown(0))
         {
-            if(Input.GetMouseButtonDown(0))
+            if (_tamaPrefub)
             {
-                if (_tamaPrefub)
-                {
-                    GameObject tama = Instantiate(_tamaPrefub);
-                    tama.transform.position = this.transform.position;
-                    tama.GetComponent<Rigidbody>().AddForce(
-                        (_cm.transform.position + (_cm.transform.forward * _rayDistance) - transform.position).normalized * 100
-                        , ForceMode.Impulse);
-                }
+                GameObject tama = Instantiate(_tamaPrefub);
+                tama.transform.position = this.transform.position;
+                tama.GetComponent<Rigidbody>().AddForce((rayHitPos - transform.position).normalized * 100, ForceMode.Impulse);
+                Destroy(tama, 3f);
             }
         }
+
         Debug.DrawLine(_cm.transform.position, _cm.transform.forward * _rayDistance, new Color(0, 0, 1.0f));
 
-        
+
         /*
          * FPSの時のやつ
          * if(Physics.Raycast(transform.position, Camera.main.transform.forward, out _rayhit, 30f, _hitRayLayer))

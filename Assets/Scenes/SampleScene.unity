@@ -820,7 +820,6 @@ GameObject:
   - component: {fileID: 854542091}
   - component: {fileID: 854542084}
   - component: {fileID: 854542089}
-  - component: {fileID: 854542090}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -925,19 +924,6 @@ MonoBehaviour:
     m_Bits: 1
   _hitMaterial: {fileID: 2100000, guid: 4147faccf7e504a4dba7c02ef6570478, type: 2}
   _tamaPrefub: {fileID: 4859609000654311003, guid: 274d9bbcebb592b4683c93de8b355a2e, type: 3}
---- !u!114 &854542090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 854542083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fdc8487f3a1f33449bfeb4b2c5f6ea5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moveSpeed: 15
 --- !u!54 &854542091
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1073,6 +1059,36 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1008510750 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5983428360201721105, guid: 527cde70194e9b74a96b5453ba2ea423, type: 3}
+  m_PrefabInstance: {fileID: 5983428359448618792}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1008510764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008510750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87eb7e4fd717bd1418e1c4efa0e93bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveSpeed: 10
+--- !u!114 &1008510765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008510750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e9e7a8fcfde5554cbae1ce99afd0922, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1020262868
 GameObject:
   m_ObjectHideFlags: 0
@@ -1381,6 +1397,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1060008899714607316, guid: 527cde70194e9b74a96b5453ba2ea423, type: 3}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 1060008899714607316, guid: 527cde70194e9b74a96b5453ba2ea423, type: 3}
       propertyPath: m_Interpolate
       value: 1
       objectReference: {fileID: 0}
@@ -1440,5 +1460,6 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6186116349771845211, guid: 527cde70194e9b74a96b5453ba2ea423, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 527cde70194e9b74a96b5453ba2ea423, type: 3}

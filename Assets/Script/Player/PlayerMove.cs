@@ -1,6 +1,6 @@
-using Unity.VisualScripting;
 using UnityEngine;
-
+using DG.Tweening;
+using System;
 public class PlayerMove : MonoBehaviour
 {
     Rigidbody _rb;
@@ -14,9 +14,58 @@ public class PlayerMove : MonoBehaviour
     Vector3 _moveVec;
 
     bool _playerForwardChange;
+
+
+    float _easingInputH;
+    DG.Tweening.Core.TweenerCore<float,float,DG.Tweening.Plugins.Options.FloatOptions> DtEasingH;
+    bool _isEasingH = false;
+    float _inputH;
+    public float InputH
+    {
+        set 
+        {
+            if (value != _inputH)
+            {
+                _inputH = value;
+                _isEasingH = true;
+                DtEasingH = DOTween.To
+                    (
+                    () => _easingInputH,
+                    (x) => _easingInputH = x,
+                    value,
+                    1
+                    ).OnComplete(() => _isEasingH = false) ;
+            }
+        }
+    }
+    
+    float _easingInputV;
+    float _inputV;
+    DG.Tweening.Core.TweenerCore<float, float, DG.Tweening.Plugins.Options.FloatOptions> DtEasingV;
+    bool _isEasingV = false;
+    public float InputV
+    {
+        set
+        {
+            if (value != _inputV)
+            {
+                _inputV = value;
+                _isEasingV = true;
+                DtEasingV = DOTween.To
+                    (
+                    () => _easingInputV,
+                    (x) => _easingInputV = x,
+                    value,
+                    1
+                    ).OnComplete(() => _isEasingV = false);
+            }
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
+        float a = 10f;
+        var b = a;
         _pi = GetComponent<PlayerInput>();
         _rb = GetComponent<Rigidbody>();
         _anim = GetComponent<Animator>();
@@ -41,7 +90,6 @@ public class PlayerMove : MonoBehaviour
             _playerForwardChange= true;
         }
         _moveVec.y = 0;
-        Debug.Log(_moveVec);
         /*
         Vector3 pForward = _rb.velocity;
         pForward.y = 0;
@@ -50,8 +98,13 @@ public class PlayerMove : MonoBehaviour
         {
             this.transform.forward = pForward;
         }*/
-        _anim.SetFloat("speedX", _pi.InputMove.x);
-        _anim.SetFloat("speedY", _pi.InputMove.y);
+
+        Debug.Log(_pi.InputMove);
+
+        InputH = _pi.InputMove.x;
+        InputV = _pi.InputMove.y;
+        _anim.SetFloat("speedX", _easingInputH);
+        _anim.SetFloat("speedY", _easingInputV);
         _anim.SetFloat("moveMag", _rb.velocity.magnitude);
 
         //_rb.AddForce(cameraVec * _moveSpeed);

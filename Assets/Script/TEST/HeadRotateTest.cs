@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class HeadRotateTest : MonoBehaviour
 {
+    [SerializeField] Transform _copyPos;
+
+
     //コピペであまり内容を理解していない
     [SerializeField] AxisState _horizontal;
     [SerializeField] AxisState _vertical;
@@ -24,5 +27,6 @@ public class HeadRotateTest : MonoBehaviour
         var verticalRotation = Quaternion.AngleAxis(_vertical.Value, Vector3.right);
         Quaternion hv = horizontalRotation * verticalRotation;
         transform.rotation = hv;
+        this.transform.position = _copyPos.position;
     }
 }

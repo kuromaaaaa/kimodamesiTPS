@@ -18,7 +18,6 @@ public class PlayerMove : MonoBehaviour
 
     float _easingInputH;
     DG.Tweening.Core.TweenerCore<float,float,DG.Tweening.Plugins.Options.FloatOptions> DtEasingH;
-    bool _isEasingH = false;
     float _inputH;
     public float InputH
     {
@@ -27,14 +26,13 @@ public class PlayerMove : MonoBehaviour
             if (value != _inputH)
             {
                 _inputH = value;
-                _isEasingH = true;
                 DtEasingH = DOTween.To
                     (
                     () => _easingInputH,
                     (x) => _easingInputH = x,
                     value,
                     1
-                    ).OnComplete(() => _isEasingH = false) ;
+                    ) ;
             }
         }
     }
@@ -42,7 +40,6 @@ public class PlayerMove : MonoBehaviour
     float _easingInputV;
     float _inputV;
     DG.Tweening.Core.TweenerCore<float, float, DG.Tweening.Plugins.Options.FloatOptions> DtEasingV;
-    bool _isEasingV = false;
     public float InputV
     {
         set
@@ -50,14 +47,13 @@ public class PlayerMove : MonoBehaviour
             if (value != _inputV)
             {
                 _inputV = value;
-                _isEasingV = true;
                 DtEasingV = DOTween.To
                     (
                     () => _easingInputV,
                     (x) => _easingInputV = x,
                     value,
                     1
-                    ).OnComplete(() => _isEasingV = false);
+                    );
             }
         }
     }
@@ -78,7 +74,7 @@ public class PlayerMove : MonoBehaviour
         //Debug.Log(_pi.InputMove);
         //Vector3 inputVec3 = new Vector3(_pi.InputMove.x, 0, _pi.InputMove.y);
         _moveVec = (Camera.main.transform.forward * _pi.InputMove.y + Camera.main.transform.right * _pi.InputMove.x).normalized;
-        if (_pi.InputMove.x + _pi.InputMove.y > 0 && _playerForwardChange)
+        if ((_pi.InputMove.x != 0 || _pi.InputMove.y != 0) && _playerForwardChange)
         {
             Vector3 cmfo = _cm.transform.forward;
             cmfo.y = -0.1f;

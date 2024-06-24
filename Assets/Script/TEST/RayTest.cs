@@ -10,13 +10,16 @@ public class RayTest : MonoBehaviour
     LayerMask _hitRayLayer;
     [SerializeField]
     Material _hitMaterial;
-    RaycastHit _rayhit;
+    RaycastHit _rayhitCollider;
+    bool _rayHit = false;
 
     Vector3 _rayHitPos;
     public Vector3 RayHitPos { get { return _rayHitPos; } }
 
     [SerializeField]
     GameObject _tamaPrefub;
+
+    PlayerInput _playerInput;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,45 +29,38 @@ public class RayTest : MonoBehaviour
         _cm = Camera.main.gameObject;
     }
 
+    private void OnEnable()
+    {
+        _playerInput = this.GetComponent<PlayerInput>();
+        _playerInput.OneShot += Fire;
+    }
+
+    private void OnDisable()
+    {
+        _playerInput.OneShot -= Fire;
+    }
+
     // Update is called once per frame
     void Update()
     {
         _rayHitPos = _cm.transform.position + (_cm.transform.forward * _rayDistance);
+        _rayHit = false;
 
-        if (Physics.Raycast(_cm.transform.position, _cm.transform.forward, out _rayhit, _rayDistance, _hitRayLayer))
+        if (Physics.Raycast(_cm.transform.position, _cm.transform.forward, out _rayhitCollider, _rayDistance, _hitRayLayer))
         {
-            Debug.Log(_rayhit.collider.gameObject.name);
-            _rayHitPos = _rayhit.point;
-            if (Input.GetMouseButtonDown(0))
-            {
-                _rayhit.collider.gameObject.GetComponent<MeshRenderer>().material = _hitMaterial;
-            }
+            _rayHitPos = _rayhitCollider.point;
+            _rayHit = true;
         }
-        if (Input.GetMouseButtonDown(0))
+        Debug.DrawRay(_cm.transform.position, _cm.transform.forward * _rayDistance, new Color(0, 0, 1.0f));
+    }
+
+    void Fire()
+    {
+        Debug.Log("Fire");
+        if (_rayHit && _rayhitCollider.collider.gameObject.TryGetComponent<PartsCollider>(out PartsCollider pc))
         {
-            if (_tamaPrefub)
-            {
-                GameObject tama = Instantiate(_tamaPrefub);
-                tama.transform.position = this.transform.position;
-                tama.GetComponent<Rigidbody>().AddForce((_rayHitPos - transform.position).normalized * 100, ForceMode.Impulse);
-                Destroy(tama, 3f);
-            }
+            Debug.Log("EnemyRayHit");
+            pc.damage();
         }
-
-        Debug.DrawLine(_cm.transform.position, _cm.transform.forward * _rayDistance, new Color(0, 0, 1.0f));
-
-
-        /*
-         * FPSの時のやつ
-         * if(Physics.Raycast(transform.position, Camera.main.transform.forward, out _rayhit, 30f, _hitRayLayer))
-         * {
-         *     Debug.Log(_rayhit.collider.gameObject.name);
-         *     if(Input.GetMouseButtonDown(0))
-         *     {
-         *         _rayhit.collider.gameObject.GetComponent<MeshRenderer>().material = _hitMaterial;
-         *     }
-         * }
-         * Debug.DrawLine(transform.position, this.transform.position + Camera.main.transform.forward * 30, new Color(0,0,1.0f));
-        */
     }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using DG.Tweening.Core;
 using System;
 public class PlayerMove : MonoBehaviour
 {
@@ -14,10 +15,10 @@ public class PlayerMove : MonoBehaviour
     Vector3 _moveVec;
 
     bool _playerForwardChange;
-
+    int speedX = Animator.StringToHash("speedX");
 
     float _easingInputH;
-    DG.Tweening.Core.TweenerCore<float,float,DG.Tweening.Plugins.Options.FloatOptions> DtEasingH;
+    Tween DtEasingH;
     float _inputH;
     public float InputH
     {
@@ -31,7 +32,7 @@ public class PlayerMove : MonoBehaviour
                     () => _easingInputH,
                     (x) => _easingInputH = x,
                     value,
-                    1
+                    0.3f
                     ) ;
             }
         }
@@ -52,7 +53,7 @@ public class PlayerMove : MonoBehaviour
                     () => _easingInputV,
                     (x) => _easingInputV = x,
                     value,
-                    1
+                    0.3f
                     );
             }
         }
@@ -60,8 +61,6 @@ public class PlayerMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        float a = 10f;
-        var b = a;
         _pi = GetComponent<PlayerInput>();
         _rb = GetComponent<Rigidbody>();
         _anim = GetComponent<Animator>();
@@ -86,6 +85,7 @@ public class PlayerMove : MonoBehaviour
             _playerForwardChange= true;
         }
         _moveVec.y = 0;
+
         /*
         Vector3 pForward = _rb.velocity;
         pForward.y = 0;
@@ -95,11 +95,9 @@ public class PlayerMove : MonoBehaviour
             this.transform.forward = pForward;
         }*/
 
-        Debug.Log(_pi.InputMove);
-
         InputH = _pi.InputMove.x;
         InputV = _pi.InputMove.y;
-        _anim.SetFloat("speedX", _easingInputH);
+        _anim.SetFloat(speedX, _easingInputH);
         _anim.SetFloat("speedY", _easingInputV);
         _anim.SetFloat("moveMag", _rb.velocity.magnitude);
 

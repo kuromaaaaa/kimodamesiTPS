@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - EnemyPartsCollider
+  - Enemy
+  - aimAssiPos
   layers:
   - Default
   - TransparentFX

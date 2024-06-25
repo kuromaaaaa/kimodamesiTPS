@@ -56,10 +56,8 @@ public class RayTest : MonoBehaviour
 
     void Fire()
     {
-        Debug.Log("Fire");
         if (_rayHit && _rayhitCollider.collider.gameObject.TryGetComponent<PartsCollider>(out PartsCollider pc))
         {
-            Debug.Log("EnemyRayHit");
             pc.damage();
         }
     }

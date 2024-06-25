@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SingletonMonoBehaviour<T> : MonoBehaviour where T : SingletonMonoBehaviour<T>
 {
+    protected bool DDOL= false;
     private static T instance;
     public static T Instance
     {
@@ -19,6 +20,13 @@ public class SingletonMonoBehaviour<T> : MonoBehaviour where T : SingletonMonoBe
         else
         {
             Destroy(this);
+        }
+    }
+    private void Start()
+    {
+        if (DDOL)
+        {
+            DontDestroyOnLoad(instance);
         }
     }
 }

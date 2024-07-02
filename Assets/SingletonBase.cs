@@ -11,16 +11,23 @@ public class SingletonMonoBehaviour<T> : MonoBehaviour where T : SingletonMonoBe
         get { return instance; }
         set { instance = value; }
     }
-    private void Awake()
+    protected void Awake()
     {
+        Debug.Log("Awakeよばれた");
         if(instance == null)
         {
-            instance = (T)this;
+            instance = (T)FindObjectOfType(typeof(T));
         }
         else
         {
             Destroy(this);
         }
+    }
+
+    private void OnDestroy()
+    {
+        if (ReferenceEquals(this, instance))
+            instance = null;
     }
     private void Start()
     {

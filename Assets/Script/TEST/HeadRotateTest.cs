@@ -85,15 +85,40 @@ public class HeadRotateTest : MonoBehaviour
 
         if (_AimAssistPosList.AAPL.Count > 0)
         {
+
+            //エイムアシストが有効になるキャラを選択
+            /*画面中央からの角度で決定
             var a = _AimAssistPosList.AAPL.OrderBy((a) => (Vector3.Angle((a.transform.position -
                 Camera.main.gameObject.transform.position)
                 , Camera.main.transform.forward))).ToList();
+              中央から飛ばしたレイとの距離
+            var a = _AimAssistPosList.AAPL.OrderBy((x) => {
+                Vector3 b = (x.transform.position - Camera.main.gameObject.transform.position);
+                Vector3 a = Camera.main.transform.forward;
+                float t = Vector3.Dot(a, b) / a.sqrMagnitude;
+                Vector3 p = Camera.main.transform.position + (t * a);
+                //レイの線上の最短の点
+                return (x.transform.position - p).sqrMagnitude;
+            }).ToList();
+            */
 
-            Vector3 enemyDire = (a[0].transform.position - Camera.main.gameObject.transform.position).normalized;
+            List<GameObjectFloat> gameObjectFloats = new List<GameObjectFloat>();
+            for(int i = 0; i < _AimAssistPosList.AAPL.Count ;i++)
+            {
+                Vector3 b = (_AimAssistPosList.AAPL[i].transform.position - Camera.main.gameObject.transform.position);
+                Vector3 ray = Camera.main.transform.forward;
+                float t = Vector3.Dot(ray, b) / ray.sqrMagnitude;
+                Vector3 p = Camera.main.transform.position + (t * ray);
+                gameObjectFloats.Add(new GameObjectFloat(_AimAssistPosList.AAPL[i], (_AimAssistPosList.AAPL[i].transform.position - p).sqrMagnitude));
+            }
+
+            var gfList = gameObjectFloats.OrderBy((x) => x.fl).ToList();
+
+            Vector3 enemyDire = (gfList[0].go.transform.position - Camera.main.gameObject.transform.position).normalized;
             Vector3 cross = Vector3.Cross(Camera.main.gameObject.transform.forward, enemyDire);
 
 
-            if (Vector3.Angle(enemyDire, Camera.main.transform.forward) < _aimAssistSize)
+            if (gfList[0].fl < _aimAssistSize)
             {
                 if (_playerInput.InputLook.x != 0)
                 {
@@ -112,5 +137,16 @@ public class HeadRotateTest : MonoBehaviour
         var verticalRotation = Quaternion.AngleAxis(_vertical.Value, Vector3.right);
         Quaternion hv = horizontalRotation * verticalRotation;
         transform.rotation = hv;
+    }
+}
+
+public class GameObjectFloat
+{
+    public GameObject go;
+    public float fl;
+    public GameObjectFloat(GameObject g,float f)
+    {
+        go = g;
+        fl = f;
     }
 }

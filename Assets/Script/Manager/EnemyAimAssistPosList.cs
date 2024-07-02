@@ -10,15 +10,5 @@ public class EnemyAimAssistPosList : SingletonMonoBehaviour<EnemyAimAssistPosLis
         get { return _aapl; }
         set { _aapl = value; }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
